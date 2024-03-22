@@ -10,20 +10,20 @@ pipeline {
 
         stage('Installation of dependencies') {
             steps {
-                bat 'pip3 install -r requirements.txt'
+                sh 'pip3 install -r requirements.txt'
             }
         }
 
         stage('Execution of test.py') {
             steps {
-                bat 'pytest test.py'
+                sh 'pytest test.py'
             }
         }
 
         stage('Deploying step') {
             steps {
                 script {
-                    def branchName = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                     if (branchName == 'main') {
                         echo 'Deploying to production'
                     } else {
