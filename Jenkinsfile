@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Cloning from git') {
+        stage('Cloning the repository') {
             steps {
                git branch: 'main', url: 'https://github.com/Afraz33/MLOPS_Week4.git'
             }
@@ -10,25 +10,24 @@ pipeline {
 
         stage('Installation of dependencies') {
             steps {
-                bat 'pip3 install -r requirements.txt'
-                echo 'Dependencies successfully installed!'
+                sh 'pip3 install -r requirements.txt'
             }
         }
 
-        stage('Test') {
+        stage('Execution of test.py') {
             steps {
-                bat 'python test.py'
-                echo 'Tests passed!'
+                sh 'pytest test.py'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploying step') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'master') {
-                        echo 'Deploying to production...'
+                    def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    if (branchName == 'main') {
+                        echo 'Deploying to production'
                     } else {
-                        echo 'Deploying to development server...'
+                        echo 'Deploying to UAT'
                     }
                 }
             }
