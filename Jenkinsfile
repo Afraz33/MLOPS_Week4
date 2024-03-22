@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Cloning the repository') {
             steps {
-                git 'https://github.com/Afraz33/MLOPS_Week4.git'
+               git branch: 'main', url: 'https://github.com/Afraz33/MLOPS_Week4.git'
             }
         }
 
