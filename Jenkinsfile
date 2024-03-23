@@ -25,8 +25,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                     echo "Branch name: ${env.BRANCH_NAME}"
-                    if (env.BRANCH_NAME == 'main') {
+                     def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+
+                     echo "Branch name: ${branchName}"
+                    if (branchName == 'main') {
                         echo 'Deploying to production...'
                     } else {
                         echo 'Deploying to development server...'
