@@ -25,10 +25,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                     def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-
-                     echo "Branch name: ${branchName}"
-                    if (branchName == 'main') {
+                     
+                     env.BRANCH_NAME = scm.branches[0].name
+                     echo "Branch name: ${env.BRANCH_NAME}"
+                    if (env.BRANCH_NAME == 'main') {
                         echo 'Deploying to production...'
                     } else {
                         echo 'Deploying to development server...'
