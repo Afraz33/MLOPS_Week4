@@ -25,6 +25,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
+                     echo "Branch name: ${env.BRANCH_NAME}"
                     if (env.BRANCH_NAME == 'main') {
                         echo 'Deploying to production...'
                     } else {
