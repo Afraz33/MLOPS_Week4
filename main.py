@@ -15,7 +15,7 @@ class mlops:
         return "MLOPS (CS-B)"
 
 
-# random comment 22  to test builds
+# random comment 23  to test builds
 mlops_class = mlops(5)
 mlops_class.addStudents()
 mlops_class.removeStudent()
